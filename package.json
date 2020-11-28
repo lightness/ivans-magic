@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "listen": "cross-env COM_PORT=COM3 node -r dotenv/config ./script/listen.js",
+    "write": "cross-env COM_PORT=COM4 node -r dotenv/config ./script/write.js",
+    "start": "node -r dotenv/config ./src/index.js",
+    "test:convert": "node ./src/inquirer/convert-as.test.js"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +15,12 @@
   "dependencies": {
     "crc": "^3.8.0",
     "debug": "^4.3.1",
+    "dotenv": "^8.2.0",
+    "inquirer": "^7.3.3",
+    "lodash": "^4.17.20",
     "serialport": "^9.0.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2"
   }
 }
