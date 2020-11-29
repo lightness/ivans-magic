@@ -15,7 +15,7 @@ class VResponse extends BaseFormatter {
       { name: 'typeOfMeter', type: 'string', length: 10 },
       { name: 'pcbDateCode', type: 'string', length: 4 },
       { name: 'dateOfNextCalibration', type: 'datetime', length: 8 },
-    ]
+    ];
   }
 }
 

@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "listen": "cross-env COM_PORT=COM3 node -r dotenv/config ./script/listen.js",
-    "write": "cross-env COM_PORT=COM4 node -r dotenv/config ./script/write.js",
-    "start": "node -r dotenv/config ./src/index.js",
+    "listen": "cross-env READ=true node -r dotenv/config ./src/index.js",
+    "write": "cross-env WRITE=true node -r dotenv/config ./src/index.js",
+    "duplex": "cross-env READ=true WRITE=true node -r dotenv/config ./src/index.js",
     "test:convert": "node ./src/inquirer/convert-as.test.js"
   },
   "keywords": [],
