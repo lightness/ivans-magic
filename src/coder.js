@@ -115,6 +115,7 @@ class Coder {
       r,
       frameType,
       payload,
+      crc: frameCrc,
     };
   }
 

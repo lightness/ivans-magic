@@ -11,6 +11,27 @@ class BaseFormatter {
       .reduce((acc, cur) => acc + cur, 0);
   }
 
+  split(payload) {
+    if (payload.length !== this.frameLength) {
+      throw new Error(`Wrong frame length ${payload.length} (${this.frameLength} expected)`);
+    }
+
+    const result = {};
+    this.frameSchema.forEach((schemaItem, index) => {
+      const offset = this.frameSchema.slice(0, index)
+        .map(({ length }) => length)
+        .reduce((acc, cur) => acc + cur, 0);
+
+      const buffer = payload.slice(offset, offset + schemaItem.length);
+
+      result[schemaItem.name] = buffer;
+    });
+
+    debug('Splitted:', result);
+
+    return result;
+  }
+
   decompose(payload) {
     if (payload.length !== this.frameLength) {
       throw new Error(`Wrong frame length ${payload.length} (${this.frameLength} expected)`);

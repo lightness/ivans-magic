@@ -10,12 +10,10 @@ const convertAs = {
     fromBytes: (buffer) => {
       const timestamp = parseInt(buffer.toString('hex'), 16);
 
-      // console.log('>>>', timestamp);
       return new Date(timestamp).toISOString();
     },
     toBytes: (utc) => {
       const timestamp = new Date(utc).getTime();
-      // console.log('>>>>', timestamp);
 
       return Buffer.from(
         padStartUpToEven(timestamp.toString(16), '0'),

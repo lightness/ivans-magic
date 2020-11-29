@@ -12,7 +12,10 @@ class FrameFormatManager {
     });
 
     if (!formatter) {
-      throw new Error(`Formatter not found (${r}, ${frameType})`);
+      const error = new Error(`Formatter not found (${r}, ${frameType})`);
+      error.formatterNotFound = true;
+
+      throw error;
     }
 
     return formatter;
@@ -23,6 +26,12 @@ class FrameFormatManager {
     const data = await inquireBySchema(formatter.frameSchema);
 
     return formatter.compose(data);
+  }
+
+  split(r, frameType, payload) {
+    const formatter = this.getFormatter(r, frameType);
+
+    return formatter.split(payload);
   }
 
   decompose(r, frameType, payload) {
