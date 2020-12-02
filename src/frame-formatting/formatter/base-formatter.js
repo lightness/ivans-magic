@@ -1,7 +1,6 @@
 const debug = require('debug')('frame-formatter');
 
 const convertAs = require('../../inquirer/convert-as');
-const bufferPadStart = require('../../util/buffer-pad-start');
 
 class BaseFormatter {
 
@@ -43,7 +42,13 @@ class BaseFormatter {
         .map(({ length }) => length)
         .reduce((acc, cur) => acc + cur, 0);
 
-      const buffer = payload.slice(offset, offset + schemaItem.length);
+      const buffer = Buffer.from(payload.slice(offset, offset + schemaItem.length));
+
+      if (BaseFormatter.isLeRequired(schemaItem.type)) {
+        debug(`${schemaItem.name} (LE)`, buffer);
+        buffer.reverse();
+      }
+
       debug(`${schemaItem.name}`, buffer);
       const value = convertAs[schemaItem.type].fromBytes(buffer);
 
@@ -58,17 +63,26 @@ class BaseFormatter {
   compose(data) {
     const parts = this.frameSchema.map(schemaItem => {
       const value = data[schemaItem.name];
-      const buffer = convertAs[schemaItem.type].toBytes(value);
-      const padded = bufferPadStart(buffer, schemaItem.length, 0x00);
-      debug(`${schemaItem.name}:`, padded);
+      const buffer = convertAs[schemaItem.type].toBytes(value, schemaItem.length);
+      debug(`${schemaItem.name}:`, buffer);
 
-      return padded;
+      if (BaseFormatter.isLeRequired(schemaItem.type)) {
+        buffer.reverse();
+
+        debug(`${schemaItem.name} (LE):`, buffer);
+      }
+
+      return buffer;
     });
 
     const frame = Buffer.concat(parts);
     debug('Composed:', frame);
 
     return frame;
+  }
+
+  static isLeRequired(type) {
+    return type !== 'string';
   }
 }
 

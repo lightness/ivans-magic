@@ -47,6 +47,8 @@ class Coder {
     const crc = getCrc(headerAndBody);
 
     debug('Crc:', crc);
+    crc.reverse();
+    debug('Crc (LE):', crc);
 
     const headerBodyAndCrc = Buffer.concat([headerAndBody, crc]);
 
@@ -92,6 +94,9 @@ class Coder {
     debug('Header and body', headerAndBody);
 
     const frameCrc = headerBodyAndCrc.slice(-2);
+    debug('Frame crc (LE):', frameCrc);
+    
+    frameCrc.reverse();
     debug('Frame crc:', frameCrc);
 
     const calculatedCrc = getCrc(headerAndBody);

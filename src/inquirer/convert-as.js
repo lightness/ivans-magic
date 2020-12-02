@@ -1,10 +1,13 @@
-const { trimStart } = require('lodash');
 const padStartUpToEven = require('../util/pad-start-up-to-even');
+const bufferPadStart = require('../util/buffer-pad-start');
+const bufferPadEnd = require('../util/buffer-pad-end');
 
 const convertAs = {
   'string': {
-    fromBytes: (buffer) => trimStart(buffer.toString('ascii'), '\x00'),
-    toBytes: (data) => Buffer.from(data, 'ascii'),
+    fromBytes: (buffer) => buffer.toString('ascii'),
+    toBytes: (data, len) => {
+      return bufferPadEnd(Buffer.from(data, 'ascii'), len, 0x00);
+    }
   },
   'datetime': {
     fromBytes: (buffer) => {
@@ -12,13 +15,15 @@ const convertAs = {
 
       return new Date(timestamp).toISOString();
     },
-    toBytes: (utc) => {
+    toBytes: (utc, len) => {
       const timestamp = new Date(utc).getTime();
 
-      return Buffer.from(
+      const dataBytes = Buffer.from(
         padStartUpToEven(timestamp.toString(16), '0'),
         'hex',
       );
+
+      return bufferPadStart(dataBytes, len, 0x00);
     },
   }
 }
