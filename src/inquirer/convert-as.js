@@ -13,7 +13,11 @@ const convertAs = {
     fromBytes: (buffer) => {
       const timestamp = parseInt(buffer.toString('hex'), 16);
 
-      return new Date(timestamp).toISOString();
+      try {
+        return new Date(timestamp).toISOString();
+      } catch (error) {
+        return new Date(0).toISOString();
+      }
     },
     toBytes: (utc, len) => {
       const timestamp = new Date(utc).getTime();
