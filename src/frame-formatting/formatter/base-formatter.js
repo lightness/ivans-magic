@@ -52,7 +52,7 @@ class BaseFormatter {
       debug(`${schemaItem.name}`, buffer);
       const value = convertAs[schemaItem.type].fromBytes(buffer);
 
-      result[schemaItem.name] = value;
+      result[schemaItem.name] = schemaItem.describe ? schemaItem.describe.toName(value) : value;
     });
 
     debug('Decomposed:', result);

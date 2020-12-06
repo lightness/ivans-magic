@@ -1,8 +1,7 @@
 const debug = require("debug")("serial-reader");
 
-const Coder = require("../coder");
+const Coder = require("../protocol/coder");
 const SerialParser = require("./parser");
-const frameFormatManager = require("../frame-formatting");
 const framePresenter = require("../frame-presentation/presenters/frame-presenter");
 
 class SerialReader {

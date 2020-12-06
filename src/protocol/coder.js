@@ -135,7 +135,9 @@ Coder.R = {
   RESPONSE: 0x01,
 };
 Coder.FRAME_TYPE = {
-  V: 86,
+  V: 0x56,
+  H: 0x48,
+  P: 0x50,
 }
 
 module.exports = Coder;

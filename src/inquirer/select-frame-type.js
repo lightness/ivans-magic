@@ -2,11 +2,11 @@ const inquirer = require('inquirer');
 
 const knownFormatters = require('../frame-formatting/known-formatters');
 const { toFrameType, fromFrameType } = require('../util/frame-type');
-const { toR, fromR } = require('../util/r');
+const rDescription = require('../util/r');
 
 const selectFrameType = async () => {
   const requestFrameTypes = knownFormatters
-    .map(({ r, frameType }) => `${toR(r)} ${toFrameType(frameType)}`);
+    .map(({ r, frameType }) => `${rDescription.toName(r)} ${toFrameType(frameType)}`);
   const exitOption = 'NO (EXIT)';
 
   const questions = [
@@ -27,7 +27,7 @@ const selectFrameType = async () => {
   const [r, frameType] = answer.split(' ');
 
   return {
-    r: fromR(r),
+    r: rDescription.toByte(r),
     frameType: fromFrameType(frameType),
   };
 };

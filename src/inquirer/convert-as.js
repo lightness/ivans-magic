@@ -29,6 +29,32 @@ const convertAs = {
 
       return bufferPadStart(dataBytes, len, 0x00);
     },
+  },
+  'uint16': {
+    fromBytes: (buffer) => {
+      return parseInt(buffer.toString('hex'), 16);
+    },
+    toBytes: (data, len) => {
+      const dataBytes = Buffer.from(
+        padStartUpToEven(Number(data).toString(16), '0'),
+        'hex',
+      );
+
+      return bufferPadStart(dataBytes, len, 0x00);
+    },
+  },
+  'uint8': {
+    fromBytes: (buffer) => {
+      return parseInt(buffer.toString('hex'), 16);
+    },
+    toBytes: (data, len) => {
+      const dataBytes = Buffer.from(
+        padStartUpToEven(Number(data).toString(16), '0'),
+        'hex',
+      );
+
+      return bufferPadStart(dataBytes, len, 0x00);
+    },
   }
 }
 

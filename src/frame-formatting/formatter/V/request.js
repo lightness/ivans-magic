@@ -1,6 +1,5 @@
-
-const Coder = require("../../coder");
-const BaseFormatter = require('./base-formatter');
+const Coder = require("../../../protocol/coder");
+const BaseFormatter = require('../base-formatter');
 
 class VRequest extends BaseFormatter {
   constructor() {

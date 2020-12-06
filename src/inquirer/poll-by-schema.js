@@ -1,7 +1,6 @@
 const inquirer = require('inquirer');
 const debug = require('debug')('poll');
 
-const covertAs = require('./convert-as');
 const validateAs = require('./validate-as');
 
 const questionsFromSchema = (schema) => {

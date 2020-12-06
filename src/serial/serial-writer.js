@@ -1,6 +1,6 @@
 const debug = require('debug')('serial-writer');
 
-const Coder = require('../coder');
+const Coder = require('../protocol/coder');
 const frameFormatManager = require('../frame-formatting');
 const selectFrameType = require('../inquirer/select-frame-type');
 

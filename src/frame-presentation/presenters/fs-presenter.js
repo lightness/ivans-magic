@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 
-const Coder = require('../../coder');
+const Coder = require('../../protocol/coder');
 const byteToString = require('../byte-to-string');
 
 module.exports = () => {
