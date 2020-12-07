@@ -1,7 +1,7 @@
 const { R, FRAME_TYPE } = require("../../../protocol/constants");
 const BaseFormatter = require('../base-formatter');
 
-class VRequest extends BaseFormatter {
+class UpperVRequest extends BaseFormatter {
   constructor() {
     super();
     this.r = R.REQUEST;
@@ -11,4 +11,4 @@ class VRequest extends BaseFormatter {
   }
 }
 
-module.exports = VRequest;
+module.exports = UpperVRequest;

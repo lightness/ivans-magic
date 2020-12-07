@@ -1,7 +1,7 @@
 const { R, FRAME_TYPE } = require("../../../protocol/constants");
 const BaseFormatter = require('../base-formatter');
 
-class PRequest extends BaseFormatter {
+class UpperPRequest extends BaseFormatter {
   constructor() {
     super();
     this.r = R.REQUEST;
@@ -16,4 +16,4 @@ class PRequest extends BaseFormatter {
   }
 }
 
-module.exports = PRequest;
+module.exports = UpperPRequest;

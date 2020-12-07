@@ -2,7 +2,7 @@ const { R, FRAME_TYPE, PAIRING_RESULT } = require("../../../protocol/constants")
 const BaseFormatter = require('../base-formatter');
 const DescriptionMap = require('../../../frame-presentation/description-map');
 
-class NResponse extends BaseFormatter {
+class UpperNResponse extends BaseFormatter {
   constructor() {
     super();
     this.r = R.RESPONSE;
@@ -18,4 +18,4 @@ class NResponse extends BaseFormatter {
   }
 }
 
-module.exports = NResponse;
+module.exports = UpperNResponse;

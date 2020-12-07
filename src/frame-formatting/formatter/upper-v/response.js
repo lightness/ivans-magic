@@ -1,7 +1,7 @@
 const { R, FRAME_TYPE } = require("../../../protocol/constants");
 const BaseFormatter = require('../base-formatter');
 
-class VResponse extends BaseFormatter {
+class UpperVResponse extends BaseFormatter {
   constructor() {
     super();
     this.r = R.RESPONSE;
@@ -18,4 +18,4 @@ class VResponse extends BaseFormatter {
   }
 }
 
-module.exports = VResponse;
+module.exports = UpperVResponse;
