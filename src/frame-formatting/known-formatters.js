@@ -12,6 +12,9 @@ const LowerVRequest = require('./formatter/lower-v/request');
 const LowerVResponse = require('./formatter/lower-v/response');
 const LowerNRequest = require('./formatter/lower-n/request');
 const LowerNResponse = require('./formatter/lower-n/response');
+const UpperRRequest = require('./formatter/upper-r/request');
+const UpperRFullResponse = require('./formatter/upper-r/full-response');
+const UpperRPartialResponse = require('./formatter/upper-r/partial-response');
 
 module.exports = [
   new UpperVResponse(),
@@ -28,4 +31,7 @@ module.exports = [
   new LowerPResponse(),
   new LowerNRequest(),
   new LowerNResponse(),
+  new UpperRRequest(),
+  new UpperRFullResponse(),
+  new UpperRPartialResponse(),
 ].sort((a, b) => a.r - b.r);
