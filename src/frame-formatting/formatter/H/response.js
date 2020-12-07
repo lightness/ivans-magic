@@ -1,11 +1,11 @@
-const Coder = require("../../../protocol/coder");
+const { R, FRAME_TYPE } = require("../../../protocol/constants");
 const BaseFormatter = require('../base-formatter');
 
 class HResponse extends BaseFormatter {
   constructor() {
     super();
-    this.r = Coder.R.RESPONSE;
-    this.frameType = Coder.FRAME_TYPE.H;
+    this.r = R.RESPONSE;
+    this.frameType = FRAME_TYPE.H;
 
     this.frameSchema = [
       { name: 'deviceSerialNumberPrefix', type: 'string', length: 2 },

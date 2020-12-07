@@ -1,13 +1,12 @@
-const Coder = require("../../../protocol/coder");
-const { PAIRING_RESULT } = require("../../../protocol/constants");
+const { R, FRAME_TYPE, PAIRING_RESULT } = require("../../../protocol/constants");
 const BaseFormatter = require('../base-formatter');
 const DescriptionMap = require('../../../frame-presentation/description-map');
 
 class PResponse extends BaseFormatter {
   constructor() {
     super();
-    this.r = Coder.R.RESPONSE;
-    this.frameType = Coder.FRAME_TYPE.P;
+    this.r = R.RESPONSE;
+    this.frameType = FRAME_TYPE.P;
 
     this.frameSchema = [
       { name: 'targetDeviceSerialNumberPrefix', type: 'string', length: 2 },

@@ -1,6 +1,7 @@
 const debug = require("debug")("serial-reader");
 
 const Coder = require("../protocol/coder");
+const { FS, FE } = require('../protocol/constants');
 const SerialParser = require("./parser");
 const framePresenter = require("../frame-presentation/presenters/frame-presenter");
 
@@ -8,8 +9,8 @@ class SerialReader {
   constructor(serial) {
     this.serial = serial;
     this.serialParser = new SerialParser({
-      frameStart: [Coder.FS],
-      frameEnd: [Coder.FE],
+      frameStart: [FS],
+      frameEnd: [FE],
     });
     this.coder = new Coder();
   }

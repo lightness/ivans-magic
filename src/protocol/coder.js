@@ -1,12 +1,14 @@
 const debug = require('debug')('coder');
+
+const { FS, FE, ESC, XM } = require('./constants');
 const getCrc = require('./crc');
 
 class Coder {
   *escape (payload) {
     for (const byte of payload) {
-      if ([Coder.FS, Coder.FE, Coder.ESC].includes(byte)) {
-        yield Coder.ESC;
-        yield byte ^ Coder.XM;
+      if ([FS, FE, ESC].includes(byte)) {
+        yield ESC;
+        yield byte ^ XM;
       } else {
         yield byte;
       }
@@ -17,13 +19,13 @@ class Coder {
     let needXor = false;
 
     for (const byte of payload) {
-      if (byte === Coder.ESC) {
+      if (byte === ESC) {
         needXor = true;
         continue;
       }
 
       if (needXor) {
-        yield byte ^ Coder.XM;
+        yield byte ^ XM;
         needXor = false;
       } else {
         yield byte;
@@ -59,9 +61,9 @@ class Coder {
     debug('Escaped header, body and crc:', escaped);
 
     const result = Buffer.from([
-      Coder.FS,
+      FS,
       ...escaped,
-      Coder.FE,
+      FE,
     ]);
 
     debug('Result:', result);
@@ -73,14 +75,14 @@ class Coder {
     debug('Frame:', frame);
 
     const firstByte = frame.slice(0, 1)[0];
-    if (firstByte !== Coder.FS) {
-      console.error(`First byte should be ${Coder.FS.toString(16)}, but ${firstByte.toString(16)} got`);
+    if (firstByte !== FS) {
+      console.error(`First byte should be ${FS.toString(16)}, but ${firstByte.toString(16)} got`);
       return null;
     }
 
     const lastByte = frame.slice(-1)[0];
-    if (lastByte !== Coder.FE) {
-      console.error(`Last byte should be ${Coder.FE.toString(16)}, but ${lastByte.toString(16)} got`);
+    if (lastByte !== FE) {
+      console.error(`Last byte should be ${FE.toString(16)}, but ${lastByte.toString(16)} got`);
       return null;
     }
 
@@ -123,21 +125,6 @@ class Coder {
       crc: frameCrc,
     };
   }
-
-}
-
-Coder.FS = 0x02;
-Coder.FE = 0x17;
-Coder.ESC = 0x1B;
-Coder.XM = 0x0E;
-Coder.R = {
-  REQUEST: 0x00,
-  RESPONSE: 0x01,
-};
-Coder.FRAME_TYPE = {
-  V: 0x56,
-  H: 0x48,
-  P: 0x50,
 }
 
 module.exports = Coder;

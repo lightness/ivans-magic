@@ -1,11 +1,11 @@
-const Coder = require("../../../protocol/coder");
+const { R, FRAME_TYPE } = require("../../../protocol/constants");
 const BaseFormatter = require('../base-formatter');
 
 class PRequest extends BaseFormatter {
   constructor() {
     super();
-    this.r = Coder.R.REQUEST;
-    this.frameType = Coder.FRAME_TYPE.P;
+    this.r = R.REQUEST;
+    this.frameType = FRAME_TYPE.P;
 
     this.frameSchema = [
       { name: 'targetDeviceSerialNumberPrefix', type: 'string', length: 2 },

@@ -1,11 +1,11 @@
-const Coder = require("../../../protocol/coder");
+const { R, FRAME_TYPE } = require("../../../protocol/constants");
 const BaseFormatter = require('../base-formatter');
 
 class HRequest extends BaseFormatter {
   constructor() {
     super();
-    this.r = Coder.R.REQUEST;
-    this.frameType = Coder.FRAME_TYPE.H;
+    this.r = R.REQUEST;
+    this.frameType = FRAME_TYPE.H;
 
     this.frameSchema = [];
   }

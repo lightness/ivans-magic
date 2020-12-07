@@ -1,11 +1,11 @@
-const Coder = require("../../../protocol/coder");
+const { R, FRAME_TYPE } = require("../../../protocol/constants");
 const BaseFormatter = require('../base-formatter');
 
 class VResponse extends BaseFormatter {
   constructor() {
     super();
-    this.r = Coder.R.RESPONSE;
-    this.frameType = Coder.FRAME_TYPE.V;
+    this.r = R.RESPONSE;
+    this.frameType = FRAME_TYPE.V;
 
     this.frameSchema = [
       { name: 'serialNumber', type: 'string', length: 6 },
