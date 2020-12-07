@@ -1,9 +1,11 @@
-const VRequest = require('./formatter/V/request');
-const VResponse = require('./formatter/V/response');
-const HRequest = require('./formatter/H/request');
-const HResponse = require('./formatter/H/response');
-const PRequest = require('./formatter/P/request');
-const PResponse = require('./formatter/P/response');
+const VRequest = require('./formatter/v/request');
+const VResponse = require('./formatter/v/response');
+const HRequest = require('./formatter/h/request');
+const HResponse = require('./formatter/h/response');
+const PRequest = require('./formatter/p/request');
+const PResponse = require('./formatter/p/response');
+const LowerPRequest = require('./formatter/lower-p/request');
+const LowerPResponse = require('./formatter/lower-p/response');
 
 module.exports = [
   new VResponse(),
@@ -12,4 +14,6 @@ module.exports = [
   new HResponse(),
   new PRequest(),
   new PResponse(),
+  new LowerPRequest(),
+  new LowerPResponse(),
 ];
