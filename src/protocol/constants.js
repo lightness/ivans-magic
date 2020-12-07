@@ -24,6 +24,22 @@ const FRAME_TYPE = {
   'D': 0x44,
 };
 
+const FRAME_TYPE_DESCRIPTION = {
+  'V': '“hello”',
+  'H': 'Serial Number Request',
+  'P': 'Pairing',
+  'p': 'Pair forget',
+  'v': 'Connection',
+  'N': 'Set time',
+  'n': 'Set calibration date',
+  'R': 'Read data from user memory',
+  'T': 'Read data from temporary memory',
+  'L': 'Read data from logger memory',
+  'C': 'Read current measurement data',
+  'c': 'Read current measurement data',
+  'D': 'Clear all memory',
+}
+
 const PAIRING_RESULT = {
   'ACK': 0x06,
   'NACK': 0x15,
@@ -36,5 +52,6 @@ module.exports = {
   XM,
   R,
   FRAME_TYPE,
+  FRAME_TYPE_DESCRIPTION,
   PAIRING_RESULT,
 };

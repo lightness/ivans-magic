@@ -1,12 +1,18 @@
 const inquirer = require('inquirer');
 
 const knownFormatters = require('../frame-formatting/known-formatters');
+const { FRAME_TYPE_DESCRIPTION } = require('../protocol/constants');
 const { toFrameType, fromFrameType } = require('../util/frame-type');
 const rDescription = require('../util/r');
 
 const selectFrameType = async () => {
   const requestFrameTypes = knownFormatters
-    .map(({ r, frameType }) => `${rDescription.toName(r)} ${toFrameType(frameType)}`);
+    .map(({ r, frameType }) => {
+      const frameTypeCode = toFrameType(frameType);
+      const frameTypeDescription = FRAME_TYPE_DESCRIPTION[frameTypeCode];
+
+      return `${rDescription.toName(r)} ${frameTypeCode} - ${frameTypeDescription}`;
+    });
   const exitOption = 'NO (EXIT)';
 
   const questions = [
@@ -15,6 +21,7 @@ const selectFrameType = async () => {
       name: "answer",
       message: "Compose frame (R, Frame type)",
       choices: [...requestFrameTypes, exitOption],
+      loop: false,
     }
   ];
 
