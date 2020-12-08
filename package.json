@@ -6,8 +6,7 @@
   "scripts": {
     "listen": "cross-env READ=true node -r dotenv/config ./src/index.js",
     "write": "cross-env WRITE=true node -r dotenv/config ./src/index.js",
-    "duplex": "cross-env READ=true WRITE=true node -r dotenv/config ./src/index.js",
-    "test:convert": "node ./src/inquirer/convert-as.test.js"
+    "duplex": "cross-env READ=true WRITE=true node -r dotenv/config ./src/index.js"
   },
   "keywords": [],
   "author": "",
