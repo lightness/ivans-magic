@@ -1,17 +1,15 @@
 const inquirer = require('inquirer');
 
-const knownFormatters = require('../frame-formatting/known-formatters');
+const getSupportedFrameTypes = require('../convertation/get-supported-frame-types');
 const { FRAME_TYPE_DESCRIPTION } = require('../protocol/constants');
-const { toFrameType, fromFrameType } = require('../util/frame-type');
-const rDescription = require('../util/r');
 
 const selectFrameType = async () => {
-  const requestFrameTypes = knownFormatters
-    .map(({ r, frameType }) => {
-      const frameTypeCode = toFrameType(frameType);
-      const frameTypeDescription = FRAME_TYPE_DESCRIPTION[frameTypeCode];
+  const requestFrameTypes = getSupportedFrameTypes()
+    .map((converterType) => {
+      const [, frameType, r] = converterType.split('-');
+      const frameTypeDescription = FRAME_TYPE_DESCRIPTION[frameType];
 
-      return `${rDescription.toName(r)} ${frameTypeCode} - ${frameTypeDescription}`;
+      return `${r} ${frameType} - ${frameTypeDescription}`;
     });
   const exitOption = 'NO (EXIT)';
 
@@ -34,8 +32,8 @@ const selectFrameType = async () => {
   const [r, frameType] = answer.split(' ');
 
   return {
-    r: rDescription.toByte(r),
-    frameType: fromFrameType(frameType),
+    r,
+    frameType,
   };
 };
 

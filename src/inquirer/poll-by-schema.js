@@ -5,7 +5,7 @@ const validateAs = require('./validate-as');
 
 const questionsFromSchema = (schema) => {
   return schema.map((schemaItem) => {
-    const { name, type, length } = schemaItem;
+    const { name, type } = schemaItem;
 
     return {
       type: 'input',

@@ -1,7 +1,7 @@
 const { magenta, cyan } = require('chalk');
 
 const bufferToString = require('../buffer-to-string');
-const frameFormatManager = require('../../frame-formatting');
+const getConverter = require('../../convertation/get-converter');
 
 const presentAsRaw = frame => {
   return table => {
@@ -14,9 +14,13 @@ const presentAsRaw = frame => {
 };
 
 const presentBySchema = frame => {
-  const { r, frameType, payload } = frame;
-  const splitted = frameFormatManager.split(r, frameType, payload);
-  const decomposed = frameFormatManager.decompose(r, frameType, payload);
+  const { r: rValue, frameType: frameTypeValue, payload } = frame;
+  const r = getConverter('r').fromBytes(rValue);
+  const frameType = getConverter('frameType').fromBytes(frameTypeValue);
+  const converter = getConverter(`payload-${frameType}-${r}`, { length: frame.length });
+
+  const decomposed = converter.fromBytes(payload);
+  const splitted = converter.splitBytes(payload);
 
   return table => {
     Object.keys(splitted)

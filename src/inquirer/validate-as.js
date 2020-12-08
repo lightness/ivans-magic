@@ -6,9 +6,9 @@ const UTC_REGEX = /\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[0-1])T(?:[0-1]\d|
 
 const validateAs = {
   'string': (data, schemaItem) => {
-    const buffer = getConverter('string').toBytes(data, schemaItem.length);
+    const buffer = getConverter('string').toBytes(data, schemaItem.options.length);
 
-    if (buffer.length > schemaItem.length) {
+    if (buffer.length > schemaItem.options.length) {
       return 'Too long input';
     }
 
@@ -45,6 +45,13 @@ const validateAs = {
 
     if (number < 0 || number > 255) {
       return 'Number is out of range of uint16 [0, 255]';
+    }
+
+    return true;
+  },
+  'result': (data) => {
+    if (data !== 'ACK' && data !== 'NACK') {
+      return 'Either ACK or NACK expected';
     }
 
     return true;

@@ -4,6 +4,7 @@ const Coder = require("../protocol/coder");
 const { FS, FE } = require('../protocol/constants');
 const SerialParser = require("./parser");
 const framePresenter = require("../frame-presentation/presenters/frame-presenter");
+const getConverter = require("../convertation/get-converter");
 
 class SerialReader {
   constructor(serial) {
@@ -28,9 +29,11 @@ class SerialReader {
       return;
     }
 
-    const { r, frameType, payload, crc } = decodingResult;
-    debug("R:", r);
-    debug("Frame type:", frameType);
+    const { r: rValue, frameType: frameTypeValue, payload, crc } = decodingResult;
+    const r = getConverter('r').fromBytes(rValue);
+    const frameType = getConverter('frameType').fromBytes(frameTypeValue);
+    debug("R:", r, rValue);
+    debug("Frame type:", frameType, frameTypeValue);
     debug("Payload:", payload);
     debug("CRC:", crc);
 

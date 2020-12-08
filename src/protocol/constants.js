@@ -45,6 +45,69 @@ const RESULT = {
   'NACK': 0x15,
 };
 
+const DECI_PVM_TYPE_OF_RESULT = {
+  'IRRADIANCE': 0x30,
+  'AMBIENT_TEMPERATURE': 0x31,
+  'PV_MODULE_TEMPERATURE': 0x32,
+  'AZIMUTH': 0x33,
+  'ALTITUDE_ANGLE': 0x34,
+};
+
+const DECI_PVM_MULTIPLIER = {
+  'f': -15,
+  'p': -12,
+  'n': -9,
+  'μ': -6,
+  'm': -3,
+  '': 0,
+  'k': 3,
+  'M': 6,
+  'G': 9,
+  'T': 12,
+  'P': 15,
+};
+
+const DECI_PVM_FLAG = {
+  'EMPTY': 1,
+  'TOO_HIGH': 2,
+  'TOO_LOW': 4,
+};
+
+const DECI_PVM_UNITS = {
+  '': 0x00,
+  'V': 0x01,
+  'A': 0x02,
+  'Ω': 0x03,
+  'Hz': 0x04,
+  'W': 0x05,
+  'VA': 0x06,
+  'Var': 0x07,
+  'Wh': 0x08,
+  'VAh': 0x09,
+  'Varh': 0x0A,
+  'J': 0x0B,
+  'F': 0x0C,
+  'H': 0x0D,
+  '%': 0x0E,
+  'g': 0x0F,
+  's': 0x10,
+  '°C': 0x11,
+  '°F': 0x12,
+  'K': 0x13,
+  'Ωm': 0x14,
+  'm': 0x15,
+  '°': 0x16,
+  'lx': 0x17,
+  'lm': 0x18,
+  'm/µs': 0x19,
+  'Ah': 0x1A,
+  'dB': 0x1B,
+  'dBm': 0x1C,
+  'dBi': 0x1D,
+  'W/m^2': 0x1E,
+  'BTU/(ft^2*h)': 0x1F,
+};
+
 module.exports = {
   FS,
   FE,

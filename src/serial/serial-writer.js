@@ -1,8 +1,9 @@
 const debug = require('debug')('serial-writer');
 
 const Coder = require('../protocol/coder');
-const frameFormatManager = require('../frame-formatting');
 const selectFrameType = require('../inquirer/select-frame-type');
+const pollBySchema = require('../inquirer/poll-by-schema');
+const getConverter = require('../convertation/get-converter');
 
 class SerialWriter {
 
@@ -20,13 +21,19 @@ class SerialWriter {
 
   async singleWrite() {
     const { r, frameType } = await selectFrameType();
-    debug('R:', r);
-    debug('Frame type:', frameType);
+    const rValue = getConverter('r').toBytes(r);
+    const frameTypeValue = getConverter('frameType').toBytes(frameType);
+    debug('R:', r, rValue);
+    debug('Frame type:', frameType, frameTypeValue);
 
-    const payload = await frameFormatManager.compose(r, frameType);
-    debug('Payload:', payload);
+    const converter = getConverter(`payload-${frameType}-${r}`);
 
-    const encoded = this.coder.encode(r, frameType, payload);
+    const data = await pollBySchema(converter.schema);
+    debug('Data:', data);
+
+    const payload = converter.toBytes(data);
+
+    const encoded = this.coder.encode(rValue, frameTypeValue, payload);
     debug('Encoded:', encoded);
 
     this.serial.write(encoded);

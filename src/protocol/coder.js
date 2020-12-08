@@ -38,10 +38,10 @@ class Coder {
     debug('Frame type:', frameType);
     debug('Payload:', payload);
 
-    const headerAndBody = Buffer.from([
+    const headerAndBody = Buffer.concat([
       r,
       frameType,
-      ...payload,
+      payload,
     ]);
 
     debug('Header and body:', headerAndBody);
@@ -109,10 +109,10 @@ class Coder {
       return null;
     }
 
-    const r = headerAndBody[0];
+    const r = Buffer.from([headerAndBody[0]]);
     debug('R:', r);
 
-    const frameType = headerAndBody[1];
+    const frameType = Buffer.from([headerAndBody[1]]);
     debug('Frame type:', frameType);
 
     const payload = headerAndBody.slice(2);
