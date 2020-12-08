@@ -1,4 +1,4 @@
-const { R, FRAME_TYPE, PAIRING_RESULT } = require("../../../protocol/constants");
+const { R, FRAME_TYPE, RESULT } = require("../../../protocol/constants");
 const BaseFormatter = require('../base-formatter');
 
 class UpperRFullResponse extends BaseFormatter {

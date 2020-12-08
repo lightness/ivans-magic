@@ -1,4 +1,4 @@
-const { R, FRAME_TYPE, PAIRING_RESULT } = require("../../../protocol/constants");
+const { R, FRAME_TYPE, RESULT } = require("../../../protocol/constants");
 const BaseFormatter = require('../base-formatter');
 const DescriptionMap = require('../../../frame-presentation/description-map');
 
@@ -13,7 +13,7 @@ class LowerPResponse extends BaseFormatter {
       { name: 'targetDeviceSerialNumber', type: 'uint16', length: 2 },
       { name: 'externalDeviceSerialNumberPrefix', type: 'string', length: 2 },
       { name: 'externalDeviceSerialNumber', type: 'uint16', length: 2 },
-      { name: 'pairingResult', type: 'uint8', length: 1, describe: new DescriptionMap(PAIRING_RESULT) },
+      { name: 'pairingResult', type: 'uint8', length: 1, describe: new DescriptionMap(RESULT) },
     ];
   }
 }

@@ -40,7 +40,7 @@ const FRAME_TYPE_DESCRIPTION = {
   'D': 'Clear all memory',
 }
 
-const PAIRING_RESULT = {
+const RESULT = {
   'ACK': 0x06,
   'NACK': 0x15,
 };
@@ -53,5 +53,5 @@ module.exports = {
   R,
   FRAME_TYPE,
   FRAME_TYPE_DESCRIPTION,
-  PAIRING_RESULT,
+  RESULT,
 };
