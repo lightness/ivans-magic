@@ -1,23 +1,23 @@
-class Uint8Converter {
+class Sint32Converter {
   get type() {
-    return 'uint8';
+    return 'sint32';
   }
 
   getLength() {
-    return 1;
+    return 4;
   }
 
   toBytes(data) {
     const buffer = Buffer.allocUnsafe(this.getLength());
 
-    buffer.writeUInt8(data);
+    buffer.writeInt32LE(Number(data));
 
     return buffer;
   }
 
   fromBytes(bytes) {
-    return bytes.readUInt8();
+    return bytes.readInt32LE();
   }
 }
 
-module.exports = Uint8Converter;
+module.exports = Sint32Converter;

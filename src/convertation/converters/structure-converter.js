@@ -1,14 +1,22 @@
+const { get } = require('lodash');
+
 const getConverter = require('../get-converter');
 
 function getSchemaItemLength(schemaItem) {
-  const converter = getConverter(schemaItem.type);
-
-  return converter.length || schemaItem.options.length;
+  return getConverter(schemaItem.type).getLength(schemaItem);
 }
 
 class StructureConverter {
   get type() {
     return 'structure';
+  }
+
+  getLength(schemaItem) {
+    const schema = get(schemaItem, 'options.schema', this.schema);
+
+    return schema
+      .map(getSchemaItemLength)
+      .reduce((acc, cur) => acc + cur, 0);
   }
 
   toBytes(data, { schema: customSchema } = {}) {

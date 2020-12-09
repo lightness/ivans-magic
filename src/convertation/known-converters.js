@@ -25,6 +25,8 @@ const UpperPResponseConverter = require('./converters/frame/upper-p/response');
 const UpperRRequestConverter = require('./converters/frame/upper-r/request');
 const UpperRFullResponseConverter = require('./converters/frame/upper-r/full-response');
 const UpperRPartialResponseConverter = require('./converters/frame/upper-r/partial-response');
+const Sint32Converter = require('./converters/basic/sint32');
+const Sint8Converter = require('./converters/basic/sint8');
 
 module.exports = [
   new DatetimeConverter(),
@@ -32,6 +34,8 @@ module.exports = [
   new StringConverter(),
   new Uint8Converter(),
   new Uint16Converter(),
+  new Sint8Converter(),
+  new Sint32Converter(),
   new StructureConverter(),
   new DeciPvmConverter(),
 

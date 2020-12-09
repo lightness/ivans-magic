@@ -3,12 +3,12 @@ class Uint16Converter {
     return 'uint16';
   }
 
-  get length() {
+  getLength() {
     return 2;
   }
 
   toBytes(data) {
-    const buffer = Buffer.allocUnsafe(this.length);
+    const buffer = Buffer.allocUnsafe(this.getLength());
 
     buffer.writeUInt16LE(Number(data));
 

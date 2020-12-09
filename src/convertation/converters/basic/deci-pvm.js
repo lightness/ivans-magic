@@ -5,10 +5,6 @@ class DeciPvmConverter extends StructureConverter {
     return 'deciPVM';
   }
 
-  get length() {
-    return 9;
-  }
-
   get schema() {
     return [
       { name: 'typeOfResult', type: 'uint16' },

@@ -1,6 +1,6 @@
-class Uint8Converter {
+class Sint8Converter {
   get type() {
-    return 'uint8';
+    return 'sint8';
   }
 
   getLength() {
@@ -10,14 +10,14 @@ class Uint8Converter {
   toBytes(data) {
     const buffer = Buffer.allocUnsafe(this.getLength());
 
-    buffer.writeUInt8(data);
+    buffer.writeInt8(Number(data));
 
     return buffer;
   }
 
   fromBytes(bytes) {
-    return bytes.readUInt8();
+    return bytes.readInt8();
   }
 }
 
-module.exports = Uint8Converter;
+module.exports = Sint8Converter;

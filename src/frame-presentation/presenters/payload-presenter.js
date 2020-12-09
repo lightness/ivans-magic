@@ -1,4 +1,6 @@
 const { magenta, cyan } = require('chalk');
+const { isPlainObject } = require('lodash');
+const debug = require('debug')('payload-presenter');
 
 const bufferToString = require('../buffer-to-string');
 const getConverter = require('../../convertation/get-converter');
@@ -13,30 +15,38 @@ const presentAsRaw = frame => {
   };
 };
 
-const presentBySchema = frame => {
-  const { r: rValue, frameType: frameTypeValue, payload } = frame;
-  const r = getConverter('r').fromBytes(rValue);
-  const frameType = getConverter('frameType').fromBytes(frameTypeValue);
-  const converter = getConverter(`payload-${frameType}-${r}`, { length: frame.length });
-
+const presentByConverter = (payload, converter, prefix = 'PAYLOAD') => {
   const decomposed = converter.fromBytes(payload);
   const splitted = converter.splitBytes(payload);
 
   return table => {
-    Object.keys(splitted)
-      .map(field => {
-        table.push(
-          { 
-            [magenta(`PAYLOAD.${field}`)]: [
-              bufferToString(splitted[field]),
-              cyan(decomposed[field]),
-            ],
-          },
-        );
-      })
+    converter.schema.forEach(schemaItem => {
+      const childConverter = getConverter(schemaItem.type);
+      const key = `${prefix}.${schemaItem.name}`;
+
+      if (childConverter.schema) {
+        presentByConverter(splitted[schemaItem.name], childConverter, key)(table);
+      } else {
+        const bytes = bufferToString(splitted[schemaItem.name]);
+        const data = decomposed[schemaItem.name];
+
+        table.push({ [magenta(key)]: [bytes, cyan(data)] });
+      }
+    });
 
     return table;
   };
+}
+
+const presentBySchema = frame => {
+  const { r: rValue, frameType: frameTypeValue, payload } = frame;
+  const r = getConverter('r').fromBytes(rValue);
+  const frameType = getConverter('frameType').fromBytes(frameTypeValue);
+  
+  debug(`Searching converter for frameType "${frameType}", r "${r}" and length ${payload.length}`);
+  const converter = getConverter(`payload-${frameType}-${r}`, { length: payload.length });
+
+  return presentByConverter(payload, converter);
 }
 
 module.exports = (frame) => {

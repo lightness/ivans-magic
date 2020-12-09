@@ -1,4 +1,4 @@
-const { isEmpty } = require('lodash');
+const { isEmpty, isNil } = require('lodash');
 
 function getConverter(type, { length } = {}) {
   const knownConverters = require('./known-converters');
@@ -12,7 +12,11 @@ function getConverter(type, { length } = {}) {
     return converters[0];
   }
 
-  const converter = converters.find(converter => converter.schemaLength === length);
+  if (isNil(length)) {
+    return converters;
+  }
+
+  const converter = converters.find(converter => converter.getLength() === length);
 
   if (!converter) {
     throw new Error(`Converter for type "${type}" and payload length ${length} not registred`);

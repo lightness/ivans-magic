@@ -4,12 +4,12 @@ class Long64Converter {
     return 'long64';
   }
 
-  get length() {
+  getLength() {
     return 8;
   }
 
   toBytes(data) {
-    const buffer = Buffer.allocUnsafe(this.length);
+    const buffer = Buffer.allocUnsafe(this.getLength());
 
     buffer.writeBigUInt64LE(BigInt(data));
 
@@ -17,7 +17,6 @@ class Long64Converter {
   }
 
   fromBytes(bytes) {
-    console.log('>>> bytes', bytes);
     const bigInt = bytes.readBigUInt64LE();
 
     return Number(bigInt);
