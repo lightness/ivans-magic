@@ -27,6 +27,17 @@ const UpperRFullResponseConverter = require('./converters/frame/upper-r/full-res
 const UpperRPartialResponseConverter = require('./converters/frame/upper-r/partial-response');
 const Sint32Converter = require('./converters/basic/sint32');
 const Sint8Converter = require('./converters/basic/sint8');
+const Sint16Converter = require('./converters/basic/sint16');
+const UpperTRequestConverter = require('./converters/frame/upper-t/request');
+const UpperTResponseConverter = require('./converters/frame/upper-t/response');
+const LowerCRequestConverter = require('./converters/frame/lower-c/request');
+const LowerCResponseConverter = require('./converters/frame/lower-c/response');
+const UpperCRequestConverter = require('./converters/frame/upper-c/request');
+const UpperCResponseConverter = require('./converters/frame/upper-c/response');
+const UpperDRequestConverter = require('./converters/frame/upper-d/request');
+const UpperDResponseConverter = require('./converters/frame/upper-d/response');
+const UpperLRequestConverter = require('./converters/frame/upper-l/request');
+const UpperLResponseConverter = require('./converters/frame/upper-l/response');
 
 module.exports = [
   new DatetimeConverter(),
@@ -35,6 +46,7 @@ module.exports = [
   new Uint8Converter(),
   new Uint16Converter(),
   new Sint8Converter(),
+  new Sint16Converter(),
   new Sint32Converter(),
   new StructureConverter(),
   new DeciPvmConverter(),
@@ -67,6 +79,21 @@ module.exports = [
 
   new UpperVRequestConverter(),
   new UpperVResponseConverter(),
+
+  new UpperTRequestConverter(),
+  new UpperTResponseConverter(),
+
+  new LowerCRequestConverter(),
+  new LowerCResponseConverter(),
+
+  new UpperCRequestConverter(),
+  new UpperCResponseConverter(),
+
+  new UpperDRequestConverter(),
+  new UpperDResponseConverter(),
+
+  new UpperLRequestConverter(),
+  new UpperLResponseConverter(),
 ].reduce(
   (map, cur) => {
     const list = map.get(cur.type) || [];

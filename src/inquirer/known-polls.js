@@ -8,12 +8,14 @@ const StringPoll = require("./polls/string");
 const StructurePoll = require("./polls/structure");
 const Uint16Poll = require("./polls/uint16");
 const Uint8Poll = require("./polls/uint8");
+const Sint16Poll = require("./polls/sint16");
 
 module.exports = [
   new StringPoll(),
   new Uint16Poll(),
   new Uint8Poll(),
   new Sint8Poll(),
+  new Sint16Poll(),
   new Sint32Poll(),
   new DatetimePoll(),
   new ResultPoll(),
