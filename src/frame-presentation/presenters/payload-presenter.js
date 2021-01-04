@@ -1,9 +1,9 @@
 const { magenta, cyan } = require('chalk');
-const { isPlainObject } = require('lodash');
 const debug = require('debug')('payload-presenter');
 
 const bufferToString = require('../buffer-to-string');
 const getConverter = require('../../convertation/get-converter');
+const presentDeciPvm = require('./deci-pvm-presenter');
 
 const presentAsRaw = frame => {
   return table => {
@@ -25,6 +25,10 @@ const presentByConverter = (payload, converter, prefix = 'PAYLOAD') => {
       const key = `${prefix}.${schemaItem.name}`;
 
       if (childConverter.schema) {
+        if (childConverter.type === 'deciPVM') {
+          presentDeciPvm(splitted[schemaItem.name], key)(table);
+        }
+
         presentByConverter(splitted[schemaItem.name], childConverter, key)(table);
       } else {
         const bytes = bufferToString(splitted[schemaItem.name]);

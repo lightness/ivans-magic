@@ -68,9 +68,9 @@ const DECI_PVM_MULTIPLIER = {
 };
 
 const DECI_PVM_FLAG = {
-  'EMPTY': 1,
-  'TOO_HIGH': 2,
-  'TOO_LOW': 4,
+  '': 1,
+  '>': 2,
+  '<': 4,
 };
 
 const DECI_PVM_UNITS = {
@@ -117,4 +117,8 @@ module.exports = {
   FRAME_TYPE,
   FRAME_TYPE_DESCRIPTION,
   RESULT,
+  DECI_PVM_TYPE_OF_RESULT,
+  DECI_PVM_MULTIPLIER,
+  DECI_PVM_FLAG,
+  DECI_PVM_UNITS,
 };

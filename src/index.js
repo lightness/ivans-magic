@@ -1,6 +1,21 @@
+const util = require('util');
+const { gray } = require('chalk');
+
 const getSerial = require('./serial/get-serial');
 const SerialReader = require('./serial/serial-reader');
 const SerialWriter = require('./serial/serial-writer');
+
+Buffer.prototype[util.inspect.custom] = function(depth, options) {
+  const bytes = [];
+
+  for (const byte of this) {
+    bytes.push(
+      byte.toString(16).padStart(2, '0').toUpperCase(),
+    );
+  }
+
+  return `Buffer <${gray(bytes.join(' '))}>`;
+}
 
 function run() {
   if (process.env.READ) {
