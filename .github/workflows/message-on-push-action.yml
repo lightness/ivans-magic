@@ -5,10 +5,24 @@ jobs:
     name: Send message
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@master
-    - name: send custom message with args
-      uses: appleboy/telegram-action@master
-      with:
-        to: ${{ secrets.TELEGRAM_TO }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
-        args: Commit $GITHUB_SHA ${{ github.event_name }} event triggered first step.
+      - uses: actions/checkout@master
+
+      - name: send custom message with args
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          args: Commit $GITHUB_SHA ${{ github.event_name }} event triggered first step.
+
+      - name: send message useing with
+        uses: ./
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            The ${{ github.event_name }} event triggered second step.
+            show the github varable ref: ${{ github.ref }}
+            show the github varable commit: ${{ github.sha }}
+            show the github varable ref: {{ commit.ref }}
+            show the github varable commit: {{ commit.sha }}
+            Commit Message: ${{ github.event.head_commit.message }}
