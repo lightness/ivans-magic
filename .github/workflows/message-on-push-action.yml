@@ -3,7 +3,7 @@ on: [push]
 jobs:
   send-message:
     name: Send message
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@master
     - name: send custom message with args
